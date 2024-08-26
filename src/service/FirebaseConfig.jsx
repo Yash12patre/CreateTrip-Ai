@@ -4,13 +4,13 @@ import { getAnalytics } from "firebase/analytics";
 import {getFirestore} from "firebase/firestore"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBDrlovrULiticJ1ogQBkRvkcXpJxrWDws",
-  authDomain: "aitrip-dfbe5.firebaseapp.com",
-  projectId: "aitrip-dfbe5",
-  storageBucket: "aitrip-dfbe5.appspot.com",
-  messagingSenderId: "427766090910",
-  appId: "1:427766090910:web:7e70a6cfff16867e7d3f8f",
-  measurementId: "G-4B8C64QKD3"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
