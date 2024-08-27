@@ -50,4 +50,4 @@ export const SelectBudgetOptions=[
     }
 ]
 
-export const LUND =" Generate Travel Plan for {location}, for {totalDays} for {traveler} with a cheap {budget} ,Give me a Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, rating, Time travel each of the location for {noOfDays} days with each day plan with best time to visit in JSON format";
+export const LUND =" Generate  Travel Plan for {location}, for {totalDays} for {traveler} with a cheap {budget} ,Give me a Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo Coordinates, ticket Pricing, rating, Time travel each of the location for {noOfDays} days with each day plan with best time to visit in JSON format";

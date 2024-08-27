@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
-import { SelectBudgetOptions, SelectTravelsList } from '@/constants/options';
+import { SelectBudgetOptions, SelectTravelsList } from '@/constants/Options';
 import { Button } from '@/components/ui/button';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { toast } from 'sonner';
-import { LUND } from '@/constants/options';
+import { LUND } from '@/constants/Options';
 import { chatSession } from '@/service/AiModel';
 import { FcGoogle } from "react-icons/fc";
 import {
