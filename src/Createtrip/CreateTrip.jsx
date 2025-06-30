@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog"
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import {doc, setDoc} from "firebase/firestore"
+import { doc, setDoc } from "firebase/firestore"
 import { db } from "@/service/FirebaseConfig"
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -26,13 +26,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 function CreateTrip() {
 
-  const [Place, setPlace] = useState();
 
   const [formData, setFormData] = useState({});
   const [openDailog, setOpenDailog] = useState(false);
-  const [loading , setLoading]=useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const router=useNavigate();
+  const router = useNavigate();
 
   const handleInputChange = (name, value) => {
     setFormData({
@@ -84,18 +83,24 @@ function CreateTrip() {
 
   const SaveAiTrip = async (TripData) => {
     setLoading(true);
-    const user=JSON.parse(localStorage.getItem('user'));
-    const docId=Date.now().toString();
-    await setDoc(doc(db, "AITrips", docId), {
-      userSelection: formData,
-      tripData:JSON.parse(TripData),
-      userEmail:user?.email,
-      id:docId
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const docId = Date.now().toString();
 
-    });
-    setLoading(false);
-    router('/view-trip/'+docId)
-  }
+      await setDoc(doc(db, "AITrips", docId), {
+        userSelection: formData,
+        tripData: JSON.parse(TripData),  
+        userEmail: user?.email,
+        id: docId
+      });
+      setLoading(false);
+      router('/view-trip/' + docId);
+    } catch (error) {
+      console.error("Error saving trip data:", error);
+      toast.error("Failed to save trip. Please try again.");
+      setLoading(false);
+    }
+  };
 
   const getUserProfile = (tokenInfo) => {
     axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`, {
@@ -125,15 +130,13 @@ function CreateTrip() {
       <p className='mt-3  text-xl text-gray-700'>Just provide some basic information, and our trip planner will generate a customized itienary based on your preference</p>
 
       <div className='mt-20 flex flex-col gap-10'>
-        <div >
-
-          <h2 className='text-xl my-3 font-medium'>What is destination of choice?</h2>
-          <GooglePlacesAutocomplete
-            apiKey={import.meta.env.VITE_GOOGEL_PLACE_API_KEY}
-            selectProps={{
-              onChange: (v) => handleInputChange('location', v),
-              value: formData?.location,
-            }}
+        <div>
+          <h2 className='text-xl my-3 font-medium'>What is your destination of choice?</h2>
+          <Input
+            placeholder="Enter your destination"
+            onChange={(e) => handleInputChange('location', { label: e.target.value })}
+            value={formData?.location?.label || ''}
+            type="text"
           />
         </div>
         <div>
@@ -183,15 +186,15 @@ function CreateTrip() {
 
       </div>
       <div className='mt-10 mb-10 flex justify-end'>
-        <Button 
-        disabled={loading}
-        onClick={OnGenerateTrip}>
-        {loading? 
-      <AiOutlineLoading3Quarters  className='h-7 w-7 animate-spin'/> : " Generate Trip"
+        <Button
+          disabled={loading}
+          onClick={OnGenerateTrip}>
+          {loading ?
+            <AiOutlineLoading3Quarters className='h-7 w-7 animate-spin' /> : " Generate Trip"
 
-  
-      } 
-      </Button>
+
+          }
+        </Button>
       </div>
       <Dialog open={openDailog}>
         <DialogContent>
@@ -202,14 +205,14 @@ function CreateTrip() {
               <h2 className='font-bold text-lg mt-7'>Sign In with Google</h2>
               <p>Sign In to the App with Google Authentication</p>
               <Button
-              
+
                 onClick={login}
                 className="w-full mt-5 flex gap-2 items-center">
-                  
-                   <FcGoogle className='h-7 w-7' />
+
+                <FcGoogle className='h-7 w-7' />
                 Sign In with Google
-               
-                </Button>
+
+              </Button>
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

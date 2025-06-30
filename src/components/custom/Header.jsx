@@ -41,7 +41,7 @@ const Header = () => {
   })
 
   const getUserProfile = (tokenInfo) => {
-    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?acess_token=${tokenInfo?.access_token}`, {
+    axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenInfo?.access_token}`, {
       headers: {
         Authorization: `Bearer ${tokenInfo?.access_token}`,
         Accept: 'Application/json'
@@ -62,7 +62,7 @@ const Header = () => {
         {user ?
           <div className='flex items-center gap-3'>
 
-          <a href="/create-trip">
+          <a href="/createtrip">
             <Button vaiant="outline" className='rounded-full'>+ Create Trip</Button>
           </a>
           <a href="/my-trips">
